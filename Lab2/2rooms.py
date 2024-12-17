@@ -1,33 +1,33 @@
-def printArr(arr):
-    n=len(arr)
-    print(arr[0],arr[1])
 
-def clean(arr,vac):
-    if(arr[vac] == 1):
-        arr[vac]=0
-    if(arr[vac] == 0):
-        return
+class room:
+
+    def __init__(self,a):
+        self.state=a
+    def suck(self):
+        self.state="clean"
     
-def check(arr):
-    if(arr[0]==0 and arr[1]==0):
-        return False
-    else:
-        return True
-        
-print("Enter the status of the room(0 for clean; 1 for dirty):")
-arr1 = []
-for i in range(0,2):
-    a=int(input("Status of the room %d:" %i))
-    arr1.append(a)
+n=2
+roomList=[]
+for i in range(n):
+    a=str(input(f"Enter room {i+1} state:"))
+    roomList.append(room(a))
+start=int(input("Enter starting room number:"))-1
 
-vac=0
-while(True):
-    printArr(arr1)
-    if(check(arr1) == False):
-        break
-    clean(arr1,vac)
-    if(vac==0):
-        vac=1
-    else:
-        vac=0
-print("Rooms are cleaned!")
+print("Before cleaning")
+print("Room\tState")
+for i in range(len(roomList)):
+    print(f"{i+1}\t{roomList[i].state}")
+
+count=0
+while count<len(roomList):
+    if(roomList[start].state.lower()=="dirty"):
+        roomList[start].suck() 
+    start=(start+1)%len(roomList)
+    count+=1
+
+print("\n")
+print("After cleaning")
+print("Room\tState")
+
+for i in range(len(roomList)):
+    print(f"{i+1}\t{roomList[i].state}")
